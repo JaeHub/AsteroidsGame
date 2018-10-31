@@ -101,6 +101,7 @@ public void keyReleased(){
     ship.setPointDirection((int)(Math.random()*360));
   }
 }
+
 abstract class Floater //Do NOT modify the Floater class! Make changes in the Spaceship class
 {
   protected int corners;  //the number of corners, a triangular floater has 3
