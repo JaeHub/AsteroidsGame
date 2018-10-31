@@ -18,6 +18,8 @@ public class AsteroidsGame extends PApplet {
 PImage[] fire = new PImage[8];
 Star [] field;
 Spaceship ship;
+boolean hyperSpace;
+int opacity = 60;
 public void setup()
 {
   //your code here
@@ -37,17 +39,29 @@ public void setup()
   for(int i = 0; i < field.length; i++){
     field[i] = new Star((int)(Math.random()*600), (int)(Math.random()*600));
   }
-  ship.setX(300);
-  ship.setY(300);
+  ship.setX(width/2);
+  ship.setY(height/2);
 }
 public void draw()
 {
   //your code here
-  background(0);
-  strokeWeight(1);
-  for(int i = 0; i < field.length; i++){
-    field[i].twinkle();
-    field[i].show();
+  if(!hyperSpace){
+    background(0);
+    strokeWeight(1);
+    for(int i = 0; i < field.length; i++){
+      field[i].twinkle();
+      field[i].show();
+    }
+  }
+  else{
+    opacity--;
+    for(int i = 0; i < field.length; i++){
+      field[i].twinkle();
+      field[i].show();
+    }
+    if(opacity == 0){
+      hyperSpace = false;
+    }
   }
   ship.move();
   ship.show();
@@ -68,7 +82,10 @@ public void keyPressed(){
     ship.turn(15);
   }
   if(key == ' '){
-    ship.disappear();
+    ship.setDirectionX(0);
+    ship.setDirectionY(0);
+    hyperSpace = true;
+    opacity = 60;
   }
 }
 
@@ -77,7 +94,6 @@ public void keyReleased(){
     ship.setFired(false);
   }
   if(key == ' '){
-    ship.appear();
     ship.setX((int)(Math.random()*600));
     ship.setY((int)(Math.random()*600));
     ship.setDirectionX(0);
@@ -175,7 +191,7 @@ class Spaceship extends Floater
 {
     private PImage[] fire;
     private boolean fired;
-    private float alpha;
+    private float opacity;
     //your code here
 
     public Spaceship(){
@@ -191,7 +207,6 @@ class Spaceship extends Floater
       yCorners[2] = 8;
       xCorners[3] = -2;
       yCorners[3] = 0;
-      alpha = 255;
       fire = new PImage[8];
       fire[0] = loadImage("Intense_Fire_1.gif");
       fire[1] = loadImage("Intense_Fire_2.gif");
@@ -205,8 +220,14 @@ class Spaceship extends Floater
 
     public void show ()  //Draws the floater at the current position
     {
-      fill(myColor, alpha);
-      stroke(myColor);
+      if(hyperSpace == false){
+        fill(myColor);
+        stroke(myColor);
+      }else{
+        tint(255, 255 + opacity);
+        // fill(255,255,255, 127 - opacity);
+        // stroke(255,255,255, 60 - opacity);
+      }
 
       //translate the (x,y) center of the ship to the correct position
       translate((float)myCenterX, (float)myCenterY);
@@ -234,18 +255,6 @@ class Spaceship extends Floater
       translate(-1*(float)myCenterX, -1*(float)myCenterY);
     }
 
-    public void disappear(){
-      for(float b = 0; b >= 0; b-=10){
-        setAlpha(b);
-      }
-    }
-
-    public void appear(){
-      for(float b = 0; b <= 10; b+=5){
-        fill(255,b);
-      }
-    }
-
     public void setX(int x){myCenterX = x;}
     public int getX(){return (int)myCenterX;}
     public void setY(int y){myCenterY = y;}
@@ -258,7 +267,6 @@ class Spaceship extends Floater
     public double getPointDirection(){return (double)myPointDirection;}
 
     public void setFired(boolean x){fired = x;}
-    public void setAlpha(float x){alpha = x;}
 }
 class Star //note that this class does NOT extend Floater
 {

@@ -2,6 +2,8 @@
 PImage[] fire = new PImage[8];
 Star [] field;
 Spaceship ship;
+boolean hyperSpace;
+int opacity = 60;
 public void setup()
 {
   //your code here
@@ -21,17 +23,29 @@ public void setup()
   for(int i = 0; i < field.length; i++){
     field[i] = new Star((int)(Math.random()*600), (int)(Math.random()*600));
   }
-  ship.setX(300);
-  ship.setY(300);
+  ship.setX(width/2);
+  ship.setY(height/2);
 }
 public void draw()
 {
   //your code here
-  background(0);
-  strokeWeight(1);
-  for(int i = 0; i < field.length; i++){
-    field[i].twinkle();
-    field[i].show();
+  if(!hyperSpace){
+    background(0);
+    strokeWeight(1);
+    for(int i = 0; i < field.length; i++){
+      field[i].twinkle();
+      field[i].show();
+    }
+  }
+  else{
+    opacity--;
+    for(int i = 0; i < field.length; i++){
+      field[i].twinkle();
+      field[i].show();
+    }
+    if(opacity == 0){
+      hyperSpace = false;
+    }
   }
   ship.move();
   ship.show();
@@ -52,7 +66,10 @@ public void keyPressed(){
     ship.turn(15);
   }
   if(key == ' '){
-    ship.disappear();
+    ship.setDirectionX(0);
+    ship.setDirectionY(0);
+    hyperSpace = true;
+    opacity = 60;
   }
 }
 
@@ -61,7 +78,6 @@ public void keyReleased(){
     ship.setFired(false);
   }
   if(key == ' '){
-    ship.appear();
     ship.setX((int)(Math.random()*600));
     ship.setY((int)(Math.random()*600));
     ship.setDirectionX(0);
