@@ -26,14 +26,14 @@ public void setup()
   
   frameRate(120);
   
-  fire[0] = loadImage("Intense_Fire_1.gif");
-  fire[1] = loadImage("Intense_Fire_2.gif");
-  fire[2] = loadImage("Intense_Fire_3.gif");
-  fire[3] = loadImage("Intense_Fire_4.gif");
-  fire[4] = loadImage("Intense_Fire_5.gif");
-  fire[5] = loadImage("Intense_Fire_6.gif");
-  fire[6] = loadImage("Intense_Fire_7.gif");
-  fire[7] = loadImage("Intense_Fire_8.gif");
+  fire[0] = loadImage("data/Intense_Fire_1.gif");
+  fire[1] = loadImage("data/Intense_Fire_2.gif");
+  fire[2] = loadImage("data/Intense_Fire_3.gif");
+  fire[3] = loadImage("data/Intense_Fire_4.gif");
+  fire[4] = loadImage("data/Intense_Fire_5.gif");
+  fire[5] = loadImage("data/Intense_Fire_6.gif");
+  fire[6] = loadImage("data/Intense_Fire_7.gif");
+  fire[7] = loadImage("data/Intense_Fire_8.gif");
   ship = new Spaceship();
   field = new Star[150];
   for(int i = 0; i < field.length; i++){
