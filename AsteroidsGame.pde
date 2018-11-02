@@ -10,14 +10,14 @@ public void setup()
   size(600,600);
   frameRate(120);
   smooth();
-  fire[0] = loadImage("data/Intense_Fire_1.gif");
-  fire[1] = loadImage("data/Intense_Fire_2.gif");
-  fire[2] = loadImage("data/Intense_Fire_3.gif");
-  fire[3] = loadImage("data/Intense_Fire_4.gif");
-  fire[4] = loadImage("data/Intense_Fire_5.gif");
-  fire[5] = loadImage("data/Intense_Fire_6.gif");
-  fire[6] = loadImage("data/Intense_Fire_7.gif");
-  fire[7] = loadImage("data/Intense_Fire_8.gif");
+  fire[0] = loadImage("https://github.com/JaeHub/AsteroidsGame/tree/master/data/Intense_Fire_1.gif");
+  fire[1] = loadImage("https://github.com/JaeHub/AsteroidsGame/tree/master/data/Intense_Fire_2.gif");
+  fire[2] = loadImage("https://github.com/JaeHub/AsteroidsGame/tree/master/data/Intense_Fire_3.gif");
+  fire[3] = loadImage("https://github.com/JaeHub/AsteroidsGame/tree/master/data/Intense_Fire_4.gif");
+  fire[4] = loadImage("https://github.com/JaeHub/AsteroidsGame/tree/master/data/Intense_Fire_5.gif");
+  fire[5] = loadImage("https://github.com/JaeHub/AsteroidsGame/tree/master/data/Intense_Fire_6.gif");
+  fire[6] = loadImage("https://github.com/JaeHub/AsteroidsGame/tree/master/data/Intense_Fire_7.gif");
+  fire[7] = loadImage("https://github.com/JaeHub/AsteroidsGame/tree/master/data/Intense_Fire_8.gif");
   ship = new Spaceship();
   field = new Star[150];
   for(int i = 0; i < field.length; i++){
@@ -69,7 +69,7 @@ public void keyPressed(){
     ship.setDirectionX(0);
     ship.setDirectionY(0);
     hyperSpace = true;
-    opacity = 60;
+    opacity = 255;
   }
 }
 
@@ -83,5 +83,6 @@ public void keyReleased(){
     ship.setDirectionX(0);
     ship.setDirectionY(0);
     ship.setPointDirection((int)(Math.random()*360));
+    hyperSpace = false;
   }
 }
