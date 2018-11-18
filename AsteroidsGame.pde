@@ -1,27 +1,31 @@
 //your variable declarations here
 PImage[] fire = new PImage[8];
 Star [] field;
+Asteroids [] rocks;
 Spaceship ship;
 boolean hyperSpace;
-int opacity = 60;
 public void setup()
 {
   //your code here
   size(600,600);
   frameRate(120);
   smooth();
-  fire[0] = loadImage("https://github.com/JaeHub/AsteroidsGame/tree/master/data/Intense_Fire_1.gif");
-  fire[1] = loadImage("https://github.com/JaeHub/AsteroidsGame/tree/master/data/Intense_Fire_2.gif");
-  fire[2] = loadImage("https://github.com/JaeHub/AsteroidsGame/tree/master/data/Intense_Fire_3.gif");
-  fire[3] = loadImage("https://github.com/JaeHub/AsteroidsGame/tree/master/data/Intense_Fire_4.gif");
-  fire[4] = loadImage("https://github.com/JaeHub/AsteroidsGame/tree/master/data/Intense_Fire_5.gif");
-  fire[5] = loadImage("https://github.com/JaeHub/AsteroidsGame/tree/master/data/Intense_Fire_6.gif");
-  fire[6] = loadImage("https://github.com/JaeHub/AsteroidsGame/tree/master/data/Intense_Fire_7.gif");
-  fire[7] = loadImage("https://github.com/JaeHub/AsteroidsGame/tree/master/data/Intense_Fire_8.gif");
+  fire[0] = loadImage("data/Intense_Fire_1.gif");
+  fire[1] = loadImage("data/Intense_Fire_2.gif");
+  fire[2] = loadImage("data/Intense_Fire_3.gif");
+  fire[3] = loadImage("data/Intense_Fire_4.gif");
+  fire[4] = loadImage("data/Intense_Fire_5.gif");
+  fire[5] = loadImage("data/Intense_Fire_6.gif");
+  fire[6] = loadImage("data/Intense_Fire_7.gif");
+  fire[7] = loadImage("data/Intense_Fire_8.gif");
   ship = new Spaceship();
   field = new Star[150];
   for(int i = 0; i < field.length; i++){
     field[i] = new Star((int)(Math.random()*600), (int)(Math.random()*600));
+  }
+  rocks = new Asteroids[25];
+  for(int i = 0; i < rocks.length; i++){
+    rocks[i] = new Asteroids((int)(Math.random()*600), (int)(Math.random()*600), (int)((Math.random()*3)+1), (float)((Math.random()*3)+1));
   }
   ship.setX(width/2);
   ship.setY(height/2);
@@ -38,17 +42,22 @@ public void draw()
     }
   }
   else{
-    opacity--;
+    ship.opacity--;
     for(int i = 0; i < field.length; i++){
-      field[i].twinkle();
       field[i].show();
     }
-    if(opacity == 0){
+    if(ship.opacity == 0){
       hyperSpace = false;
     }
   }
   ship.move();
   ship.show();
+  for(int i = 0; i < rocks.length; i++){
+    rocks[i].setDirectionX(3);
+    rocks[i].setDirectionX(3);
+    rocks[i].move();
+    rocks[i].show();
+  }
 }
 
 public void keyPressed(){
@@ -69,7 +78,7 @@ public void keyPressed(){
     ship.setDirectionX(0);
     ship.setDirectionY(0);
     hyperSpace = true;
-    opacity = 255;
+    ship.opacity -= 255;
   }
 }
 
@@ -84,5 +93,6 @@ public void keyReleased(){
     ship.setDirectionY(0);
     ship.setPointDirection((int)(Math.random()*360));
     hyperSpace = false;
+    ship.opacity += 255;
   }
 }

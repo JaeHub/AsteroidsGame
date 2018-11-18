@@ -18,6 +18,7 @@ class Spaceship extends Floater
       yCorners[2] = 8;
       xCorners[3] = -2;
       yCorners[3] = 0;
+      opacity = 0;
       fire = new PImage[8];
       fire[0] = loadImage("data/Intense_Fire_1.gif");
       fire[1] = loadImage("data/Intense_Fire_2.gif");
@@ -35,7 +36,7 @@ class Spaceship extends Floater
         fill(myColor);
         stroke(myColor);
       }else{
-        tint(255, 255 + opacity);
+        tint(255, 0);
         // fill(255,255,255, 127 - opacity);
         // stroke(255,255,255, 60 - opacity);
       }

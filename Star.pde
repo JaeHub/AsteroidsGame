@@ -8,9 +8,10 @@ class Star //note that this class does NOT extend Floater
     starY = y;
   }
   public void twinkle(){
-    glitterX = (float)((Math.random()*9)+1);
+    glitterX = (float)((Math.random()*8)+1);
   }
   public void show(){
+    fill(255);
     ellipse(starX,starY,(float)glitterX,(float)glitterX);
   }
 }
