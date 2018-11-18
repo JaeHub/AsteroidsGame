@@ -25,7 +25,7 @@ public void setup()
   }
   rocks = new Asteroids[25];
   for(int i = 0; i < rocks.length; i++){
-    rocks[i] = new Asteroids((int)(Math.random()*600), (int)(Math.random()*600), (int)((Math.random()*3)+1), (float)((Math.random()*3)+1));
+    rocks[i] = new Asteroids((int)(Math.random()*600), (int)(Math.random()*600), (int)((Math.random()*3)+1));
   }
   ship.setX(width/2);
   ship.setY(height/2);

@@ -41,7 +41,7 @@ public void setup()
   }
   rocks = new Asteroids[25];
   for(int i = 0; i < rocks.length; i++){
-    rocks[i] = new Asteroids((int)(Math.random()*600), (int)(Math.random()*600), (int)((Math.random()*3)+1), (float)((Math.random()*3)+1));
+    rocks[i] = new Asteroids((int)(Math.random()*600), (int)(Math.random()*600), (int)((Math.random()*3)+1));
   }
   ship.setX(width/2);
   ship.setY(height/2);
@@ -115,7 +115,7 @@ public void keyReleased(){
 class Asteroids extends Floater
 {
   private int astRot;
-  public Asteroids(int x, int y, int rot, float scale){
+  public Asteroids(int x, int y, int rot){
     astRot = rot;
     myColor = 0xff808487;
     corners = 7;
@@ -137,7 +137,6 @@ class Asteroids extends Floater
     yCorners[6] = 0;
     setX(x);
     setY(y);
-    scale(scale);
   }
   public void show(){
     super.show();
@@ -282,6 +281,8 @@ class Spaceship extends Floater
         fill(myColor);
         stroke(myColor);
       }else{
+        fill(myColor);
+        stroke(myColor);
         tint(255, 0);
         // fill(255,255,255, 127 - opacity);
         // stroke(255,255,255, 60 - opacity);

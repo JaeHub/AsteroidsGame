@@ -1,7 +1,7 @@
 class Asteroids extends Floater
 {
   private int astRot;
-  public Asteroids(int x, int y, int rot, float scale){
+  public Asteroids(int x, int y, int rot){
     astRot = rot;
     myColor = #808487;
     corners = 7;
@@ -23,7 +23,6 @@ class Asteroids extends Floater
     yCorners[6] = 0;
     setX(x);
     setY(y);
-    scale(scale);
   }
   public void show(){
     super.show();
