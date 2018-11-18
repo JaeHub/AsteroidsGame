@@ -1,9 +1,10 @@
 //your variable declarations here
 PImage[] fire = new PImage[8];
 Star [] field;
-Asteroids [] rocks;
+ArrayList <Asteroids> rocks;
 Spaceship ship;
 boolean hyperSpace;
+int rocksNum = 26;
 public void setup()
 {
   //your code here
@@ -23,9 +24,9 @@ public void setup()
   for(int i = 0; i < field.length; i++){
     field[i] = new Star((int)(Math.random()*600), (int)(Math.random()*600));
   }
-  rocks = new Asteroids[25];
-  for(int i = 0; i < rocks.length; i++){
-    rocks[i] = new Asteroids((int)(Math.random()*600), (int)(Math.random()*600), (int)((Math.random()*3)+1));
+  rocks = new ArrayList <Asteroids> ();
+  for(int i = 0; i < rocksNum; i++){
+    rocks.add(i, new Asteroids((int)(Math.random()*600), (int)(Math.random()*600), (int)((Math.random()*3)+1)));
   }
   ship.setX(width/2);
   ship.setY(height/2);
@@ -52,11 +53,16 @@ public void draw()
   }
   ship.move();
   ship.show();
-  for(int i = 0; i < rocks.length; i++){
-    rocks[i].setDirectionX(3);
-    rocks[i].setDirectionX(3);
-    rocks[i].move();
-    rocks[i].show();
+  for(int i = 0; i < rocksNum; i++){
+    rocks.get(i).setDirectionX(3);
+    rocks.get(i).setDirectionX(3);
+    rocks.get(i).move();
+    rocks.get(i).show();
+    //Checks distance between ships and rocks
+    if(dist(ship.getX(),ship.getY(), rocks.get(i).getX(), rocks.get(i).getY()) <= 23){
+      rocks.remove(i);
+      rocks.add(i, new Asteroids(0, (int)(Math.random()*600),(int)((Math.random()*3)+1)));
+    }
   }
 }
 
