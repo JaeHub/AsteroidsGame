@@ -2,6 +2,7 @@
 PImage[] fire = new PImage[8];
 Star [] field;
 ArrayList <Asteroids> rocks;
+ArrayList <Bullet> bullets;
 Spaceship ship;
 boolean hyperSpace;
 int rocksNum = 26;
@@ -19,11 +20,12 @@ public void setup()
   fire[5] = loadImage("data/Intense_Fire_6.gif");
   fire[6] = loadImage("data/Intense_Fire_7.gif");
   fire[7] = loadImage("data/Intense_Fire_8.gif");
-  ship = new Spaceship();
   field = new Star[150];
   for(int i = 0; i < field.length; i++){
     field[i] = new Star((int)(Math.random()*600), (int)(Math.random()*600));
   }
+  ship = new Spaceship();
+  bullets = new ArrayList <Bullet> ();
   rocks = new ArrayList <Asteroids> ();
   for(int i = 0; i < rocksNum; i++){
     rocks.add(i, new Asteroids((int)(Math.random()*600), (int)(Math.random()*600), (int)((Math.random()*3)+1)));
@@ -36,7 +38,6 @@ public void draw()
   //your code here
   if(!hyperSpace){
     background(0);
-    strokeWeight(1);
     for(int i = 0; i < field.length; i++){
       field[i].twinkle();
       field[i].show();
@@ -53,15 +54,30 @@ public void draw()
   }
   ship.move();
   ship.show();
+  for(int i = 0; i < bullets.size(); i++){
+    bullets.get(i).move();
+    bullets.get(i).show();
+  }
   for(int i = 0; i < rocksNum; i++){
-    rocks.get(i).setDirectionX(3);
-    rocks.get(i).setDirectionX(3);
+    rocks.get(i).setDirectionX(1.5);
+    rocks.get(i).setDirectionY(1.5);
     rocks.get(i).move();
     rocks.get(i).show();
     //Checks distance between ships and rocks
     if(dist(ship.getX(),ship.getY(), rocks.get(i).getX(), rocks.get(i).getY()) <= 23){
       rocks.remove(i);
       rocks.add(i, new Asteroids(0, (int)(Math.random()*600),(int)((Math.random()*3)+1)));
+    }
+  }
+  for(int i = 0; i < bullets.size(); i++){
+    for(int n = 0; n < rocksNum; n++){
+      if(dist(bullets.get(i).getX(), bullets.get(i).getY(), rocks.get(n).getX(), rocks.get(n).getY()) <= 23){
+        bullets.remove(i);
+        rocksNum -= 1;
+        rocks.remove(n);
+        // rocks.add(i, new Asteroids(0, (int)(Math.random()*600),(int)((Math.random()*3)+1)));
+        break;
+      }
     }
   }
 }
@@ -85,6 +101,9 @@ public void keyPressed(){
     ship.setDirectionY(0);
     hyperSpace = true;
     ship.opacity -= 255;
+  }
+  if(key == 'j'){
+    bullets.add(new Bullet(ship));
   }
 }
 
