@@ -52,11 +52,15 @@ public void setup()
 public void draw()
 {
   //your code here
-  if(!hyperSpace){
+  if(hyperSpace == false){
     background(0);
     for(int i = 0; i < field.length; i++){
       field[i].twinkle();
       field[i].show();
+    }
+    for(int i = 0; i < rocksNum; i++){
+      rocks.get(i).setDirectionX(0);
+      rocks.get(i).setDirectionY(0);
     }
   }
   else{
@@ -73,10 +77,14 @@ public void draw()
   for(int i = 0; i < bullets.size(); i++){
     bullets.get(i).move();
     bullets.get(i).show();
+    if(bullets.get(i).getX() >= width || bullets.get(i).getY() >= height || bullets.get(i).getX() <= 0 || bullets.get(i).getY() <= 0){
+      bullets.remove(i);
+      i--;
+    }
   }
   for(int i = 0; i < rocksNum; i++){
-    rocks.get(i).setDirectionX(1.5f);
-    rocks.get(i).setDirectionY(1.5f);
+    rocks.get(i).setDirectionX(0.5f);
+    rocks.get(i).setDirectionY(0.5f);
     rocks.get(i).move();
     rocks.get(i).show();
     //Checks distance between ships and rocks
@@ -100,7 +108,7 @@ public void draw()
 
 public void keyPressed(){
   if(key == 'w'){
-    ship.accelerate(0.5f);
+    ship.accelerate(0.3f);
     ship.setFired(true);
   }
   if(key == 's'){
@@ -116,7 +124,6 @@ public void keyPressed(){
     ship.setDirectionX(0);
     ship.setDirectionY(0);
     hyperSpace = true;
-    ship.opacity -= 255;
   }
   if(key == 'j'){
     bullets.add(new Bullet(ship));
@@ -134,7 +141,7 @@ public void keyReleased(){
     ship.setDirectionY(0);
     ship.setPointDirection((int)(Math.random()*360));
     hyperSpace = false;
-    ship.opacity += 255;
+    ship.opacity -= 255;
   }
 }
 class Asteroids extends Floater
@@ -340,7 +347,6 @@ class Spaceship extends Floater
       }else{
         fill(myColor);
         stroke(myColor);
-        tint(255, 0);
         // fill(255,255,255, 127 - opacity);
         // stroke(255,255,255, 60 - opacity);
       }

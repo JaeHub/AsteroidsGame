@@ -38,7 +38,6 @@ class Spaceship extends Floater
       }else{
         fill(myColor);
         stroke(myColor);
-        tint(255, 0);
         // fill(255,255,255, 127 - opacity);
         // stroke(255,255,255, 60 - opacity);
       }
