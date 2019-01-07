@@ -18,7 +18,7 @@ class Spaceship extends Floater
       yCorners[2] = 8;
       xCorners[3] = -2;
       yCorners[3] = 0;
-      opacity = 0;
+      opacity = 255;
       fire = new PImage[8];
       fire[0] = loadImage("data/Intense_Fire_1.gif");
       fire[1] = loadImage("data/Intense_Fire_2.gif");
@@ -36,8 +36,8 @@ class Spaceship extends Floater
         fill(myColor);
         stroke(myColor);
       }else{
-        fill(myColor);
-        stroke(myColor);
+        fill(myColor, opacity);
+        stroke(myColor, opacity);
         // fill(255,255,255, 127 - opacity);
         // stroke(255,255,255, 60 - opacity);
       }
@@ -80,4 +80,7 @@ class Spaceship extends Floater
     public double getPointDirection(){return (double)myPointDirection;}
 
     public void setFired(boolean x){fired = x;}
+
+    public float getOpacity() {return opacity;}
+    public void setOpacity(float x) {opacity = x;}
 }

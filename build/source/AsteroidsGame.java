@@ -22,6 +22,8 @@ ArrayList <Bullet> bullets;
 Spaceship ship;
 boolean hyperSpace;
 int rocksNum = 26;
+int rocksCorners = (int)(Math.random()*4);
+float shipOpacity;
 public void setup()
 {
   //your code here
@@ -48,6 +50,7 @@ public void setup()
   }
   ship.setX(width/2);
   ship.setY(height/2);
+  shipOpacity = ship.getOpacity();
 }
 public void draw()
 {
@@ -64,12 +67,16 @@ public void draw()
     }
   }
   else{
-    ship.opacity--;
+    shipOpacity-=20;
     for(int i = 0; i < field.length; i++){
       field[i].show();
     }
-    if(ship.opacity == 0){
+    if(ship.getOpacity() == 0){
       hyperSpace = false;
+    }
+    for(int i = 0; i < rocksNum; i++){
+      rocks.get(i).setDirectionX(0);
+      rocks.get(i).setDirectionY(0);
     }
   }
   ship.move();
@@ -99,7 +106,6 @@ public void draw()
         bullets.remove(i);
         rocksNum -= 1;
         rocks.remove(n);
-        // rocks.add(i, new Asteroids(0, (int)(Math.random()*600),(int)((Math.random()*3)+1)));
         break;
       }
     }
@@ -124,6 +130,7 @@ public void keyPressed(){
     ship.setDirectionX(0);
     ship.setDirectionY(0);
     hyperSpace = true;
+    ship.setOpacity(255);
   }
   if(key == 'j'){
     bullets.add(new Bullet(ship));
@@ -141,7 +148,6 @@ public void keyReleased(){
     ship.setDirectionY(0);
     ship.setPointDirection((int)(Math.random()*360));
     hyperSpace = false;
-    ship.opacity -= 255;
   }
 }
 class Asteroids extends Floater
@@ -327,7 +333,7 @@ class Spaceship extends Floater
       yCorners[2] = 8;
       xCorners[3] = -2;
       yCorners[3] = 0;
-      opacity = 0;
+      opacity = 255;
       fire = new PImage[8];
       fire[0] = loadImage("data/Intense_Fire_1.gif");
       fire[1] = loadImage("data/Intense_Fire_2.gif");
@@ -345,8 +351,8 @@ class Spaceship extends Floater
         fill(myColor);
         stroke(myColor);
       }else{
-        fill(myColor);
-        stroke(myColor);
+        fill(myColor, opacity);
+        stroke(myColor, opacity);
         // fill(255,255,255, 127 - opacity);
         // stroke(255,255,255, 60 - opacity);
       }
@@ -389,6 +395,9 @@ class Spaceship extends Floater
     public double getPointDirection(){return (double)myPointDirection;}
 
     public void setFired(boolean x){fired = x;}
+
+    public float getOpacity() {return opacity;}
+    public void setOpacity(float x) {opacity = x;}
 }
 class Star //note that this class does NOT extend Floater
 {
